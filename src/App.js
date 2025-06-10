@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
 import MultiStepForm from "./components/common/MultiStepForm/MultiStepForm";
 import { ShippingAddress, PaymentDetails, ReviewOrder, OrderConfirmation } from "./components/billing/index";
 import OrderContext from './context/orderContext'; // Context API
+import Listagem from './components/Listagem'; // NOVO componente de listagem
 
-import "./App.css"; // Importing StyleSheet
+import "./App.css"; // Importando estilo
 
-// List of components to switch inside the multi-form container
+// Componentes do formulário por etapa
 const componentsList = [
   { headerText: 'Shipping Address', headerIcon: 'fa fa-address-card', component: <ShippingAddress /> },
   { headerText: 'Payment Details', headerIcon: 'fa fa-credit-card', component: <PaymentDetails /> },
@@ -13,7 +16,7 @@ const componentsList = [
   { headerText: 'Order Confirmation', headerIcon: 'fa fa-check', component: <OrderConfirmation /> },
 ];
 
-// Supplying initial state values to use with different components.
+// Estado inicial do formulário
 const InitialValues = {
   shippingData: { firstName: "", lastName: "", address1: "", address2: "", city: "", state: "", postalcode: "", country: "" },
   PaymentsData: { cardName: "", cardNumber: "", expiryDate: "", cvvNumber: "" },
@@ -23,27 +26,37 @@ const InitialValues = {
     { id: "pr3", productName: "Product 3" },
     { id: "pr4", productName: "Product 4" }
   ]
-}
+};
 
 function App() {
-
-  // State to store checkout details
-  // This is used to prevent losing unsaved changes when you switch the component.
   const [checkoutDetails, setCheckoutDetails] = useState(InitialValues);
-  const [proceedNext, setProceedNext] = useState(true); // Enable or Disable 'Next' button within each component
+  const [proceedNext, setProceedNext] = useState(true);
 
   return (
-    <div className="App">
+    <Router>
+      <nav style={{ padding: '10px', backgroundColor: '#f0f0f0' }}>
+        <Link to="/" style={{ marginRight: '10px' }}>Formulário</Link>
+        <Link to="/listagem">Listagem</Link>
+      </nav>
 
-      <OrderContext.Provider value={{ checkoutDetails, setCheckoutDetails, setProceedNext }}>
-        <MultiStepForm
-          list={componentsList}
-          displayProgressBar={true} // Set this to false if you don't want to display the progress bar.
-          proceedNext={proceedNext} // Optional props. To Enable/Disable 'Next' button from child component.
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="App">
+              <OrderContext.Provider value={{ checkoutDetails, setCheckoutDetails, setProceedNext }}>
+                <MultiStepForm
+                  list={componentsList}
+                  displayProgressBar={true}
+                  proceedNext={proceedNext}
+                />
+              </OrderContext.Provider>
+            </div>
+          }
         />
-      </OrderContext.Provider>
-
-    </div>
+        <Route path="/listagem" element={<Listagem />} />
+      </Routes>
+    </Router>
   );
 }
 
