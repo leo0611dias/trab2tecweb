@@ -23,6 +23,3 @@ Um template básico e reutilizável para a criação de formulários em aplicaç
 * **React:** Biblioteca JavaScript para construção de interfaces de usuário.
 * **CSS:** Para estilização e layout da aplicação.
 * **JavaScript (ES6+):** Linguagem de programação principal.
-* **(Opcional, dependendo da implementação específica):**
-    * `Formik` ou `React Hook Form`: Bibliotecas populares para gerenciamento e validação de formulários.
-    * `Yup` ou `Zod`: Bibliotecas de schema validation para definir e validar estruturas de dados.
