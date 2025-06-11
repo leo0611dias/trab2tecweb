@@ -1,6 +1,6 @@
 # Formulário Multi-Etapas em React
 
-**Autores:**  
+**ALUNOS:**  
 - Leonardo Dias dos Passos Brito - 2312130234  
 - Ian Miranda da Silva - 2312130090
 
