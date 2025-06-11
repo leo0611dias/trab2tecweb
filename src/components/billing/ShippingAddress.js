@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, forwardRef, useImperativeHandle } from 'react';
 import { Form, FormGroup, Row, Col, Label, FormFeedback } from 'reactstrap';
 import TextInput from '../common/TextInput';
 import OrderContext from '../../context/orderContext'; // Importing Context API
 
-const ShippingAddress = () => {
+const ShippingAddress = forwardRef((props, ref) => {
     const { checkoutDetails, setCheckoutDetails } = useContext(OrderContext); // Context API
     const [errors, setErrors] = useState({});
 
@@ -11,7 +11,6 @@ const ShippingAddress = () => {
         const data = { ...checkoutDetails }
         data["shippingData"][name] = value;
         setCheckoutDetails(data);
-        // Limpa erro ao digitar
         setErrors(prev => ({ ...prev, [name]: undefined }));
     }
 
@@ -25,18 +24,16 @@ const ShippingAddress = () => {
         if (!shippingData.state) newErrors.state = "Obrigatório";
         if (!shippingData.postalcode) newErrors.postalcode = "Obrigatório";
         if (!shippingData.country) newErrors.country = "Obrigatório";
-
-        // Simples validação de email para address1
         if (shippingData.address1 && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(shippingData.address1)) {
             newErrors.address1 = "Deve ser um email válido";
         }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     }
 
-    // Exponha a função de validação para o MultiStepForm se necessário
-    // ou valide antes de avançar para o próximo passo
+    useImperativeHandle(ref, () => ({
+        validate
+    }));
 
     const { shippingData } = checkoutDetails;
 
@@ -160,5 +157,5 @@ const ShippingAddress = () => {
             </Form>
         </>
     )
-}
-export default ShippingAddress
+});
+export default ShippingAddress;
