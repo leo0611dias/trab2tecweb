@@ -8,7 +8,7 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-Este projeto é um template básico e reutilizável para criação de formulários multi-etapas em aplicações React, com validação de entrada de dados, integração via API REST, estrutura modular e responsividade. Ele serve como ponto de partida para aplicações modernas com cadastro e listagem dinâmicos.
+Este projeto é um template básico e reutilizável para criação de formulários multi-etapas em aplicações React, com validação de entrada de dados, integração via API REST, estrutura modular e responsiva.
 
 ---
 
@@ -91,6 +91,8 @@ src/
   App.js
   App.css
   index.js
+
+.gitignore   # Arquivo para ignorar dependências, builds e arquivos sensíveis 
 ```
 
 ---
